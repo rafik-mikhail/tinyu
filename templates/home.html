@@ -18,13 +18,15 @@
         </button>
     </nav>
     <div class="container">
-            <form action="/home" method="post">
+            <form action="{% url 'home' %}" method="post">
+                {% csrf_token %} 
                 <div>
                     <label for="name">URL:</label>
                     <input type="text" id="name" name="name">
                     <button class="btn btn-success" type="submit">generate</button>
                 </div>
             </form>
+            {{name}}
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
