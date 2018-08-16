@@ -1,38 +1,25 @@
-<!doctype html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf- ">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-t\o-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>{% block title %}Tiny URL{% endblock title %}</title>
-</head>
+{% block title %}TinyU{% endblock %}
 
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-        <a class="navbar-brand" href="{% url 'home' %}">Tiny URL</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
-    <div class="container">
-            <form action="{% url 'home' %}" method="post">
-                {% csrf_token %} 
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h2>Generate a TinyU</h2>
+        <form class="form-inline" action="{% url 'home' %}" method="post">
+            {% csrf_token %} 
                 <div>
-                    <label for="name">URL:</label>
-                    <input type="text" id="name" name="name">
-                    <button class="btn btn-success" type="submit">generate</button>
+                    <label for="long_url_name"></label>
+                    <input class="form-control mr-sm-2" type="text" id="long_url_name" placeholder="Place the url" name="long_url_name">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">generate</button>
                 </div>
-            </form>
-            {{name}}
+        </form>
+        {% if short_url_name %}
+            <span class="navbar-text">
+                your Tiny URL is : {{ request.get_host }}/{{ short_url_name }}
+            </span>
+        {% endif %}
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</body>
-
-</html>
+</div>
+{% endblock %}
